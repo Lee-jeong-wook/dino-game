@@ -6,26 +6,28 @@ canvas.height = window.innerHeight - 100;
 
 
 //공룡
-let dinoImg = new Image();
-dinoImg.src = 'dinosaur.png';
+let dinoImg = new Image(40, 50);
+dinoImg.src = './img.jfif';
 let dino = {
     x: 10,
     y: 200,
     width: 40,
     height: 50,
     draw() {
-        ctx.fillStyle = 'green';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        // ctx.drawImage(dinoImg, this.x, this.y);
+        // ctx.fillRect(this.x, this.y, this.width, this.height);
+        //뒤에 숫자가 크기 설정
+        ctx.drawImage(dinoImg, this.x, this.y, 50, 50);
     }
 }
 
 //장애물
 class Cactus {
     constructor() {
+        //장애물 크기 설정
         this.width = 20 + getRandomInt(-3, 4);
-        this.height = 30 + getRandomInt(-3, 4);
-        this.x = 500;
+        this.height = 30 + getRandomInt(-10, 100);
+        //장애물 위치 설정
+        this.x = 700;
         this.y = 250 - this.height;
     }
     draw() {
@@ -40,6 +42,7 @@ let gameState = 0; // 0: end, 1: start
 let jumpState = 0; // 0: default, 1: jumping
 let jumpTimer = 0;
 let animation;
+//목숨 수
 let life = 5;
 let score = 0;
 
@@ -49,7 +52,7 @@ function frameAction() {
     timer += 1;
     
     //장애물 제어 및 점수
-    if(timer % 120 == 0){
+    if(timer % 80 == 0){
         let cactus = new Cactus();
         cactusArr.push(cactus);
     }
@@ -62,7 +65,8 @@ function frameAction() {
             o.splice(i, 1);
         }
         
-        a.x -= 2;
+        //장애물 속도 제어
+        a.x -= 10;
         a.draw();
     })    
 
