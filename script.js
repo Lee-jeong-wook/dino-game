@@ -6,7 +6,7 @@ canvas.height = window.innerHeight - 100;
 
 
 //공룡
-let dinoImg = new Image(40, 50);
+let dinoImg = new Image();
 dinoImg.src = './img.jfif';
 let dino = {
     x: 10,
@@ -16,10 +16,13 @@ let dino = {
     draw() {
         // ctx.fillRect(this.x, this.y, this.width, this.height);
         //뒤에 숫자가 크기 설정
-        ctx.drawImage(dinoImg, this.x, this.y, 50, 50);
+        ctx.drawImage(dinoImg, this.x, this.y, 40, 50);
     }
 }
 
+//장애물 이미지 가져오기
+let cactusImg = new Image();
+cactusImg.src = './cactus.jfif';
 //장애물
 class Cactus {
     constructor() {
@@ -31,8 +34,7 @@ class Cactus {
         this.y = 250 - this.height;
     }
     draw() {
-        ctx.fillStyle = 'red';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.drawImage(cactusImg, this.x, this.y, this.width, this.height);
     }
 }
 
