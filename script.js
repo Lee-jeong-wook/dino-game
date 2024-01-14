@@ -7,7 +7,7 @@ canvas.height = window.innerHeight - 100;
 
 //공룡
 let dinoImg = new Image();
-dinoImg.src = './img.jfif';
+dinoImg.src = './IMG_1399.png';
 let dino = {
     x: 10,
     y: 200,
@@ -27,8 +27,8 @@ cactusImg.src = './cactus.jfif';
 class Cactus {
     constructor() {
         //장애물 크기 설정
-        this.width = 20 + getRandomInt(-3, 4);
-        this.height = 30 + getRandomInt(-10, 100);
+        this.width = 20 + getRandomInt(-3, 10);
+        this.height = 30 + getRandomInt(-10, 80);
         //장애물 위치 설정
         this.x = 700;
         this.y = 250 - this.height;
