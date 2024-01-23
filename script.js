@@ -7,7 +7,7 @@ canvas.height = window.innerHeight - 100;
 
 //공룡
 let dinoImg = new Image();
-dinoImg.src = './IMG_1399.png';
+dinoImg.src = './dino.png';
 let dino = {
     x: 10,
     y: 200,
@@ -22,7 +22,7 @@ let dino = {
 
 //장애물 이미지 가져오기
 let cactusImg = new Image();
-cactusImg.src = './cactus.jfif';
+cactusImg.src = './cactus.png';
 //장애물
 class Cactus {
     constructor() {
@@ -47,6 +47,7 @@ let animation;
 //목숨 수
 let life = 5;
 let score = 0;
+let cacTime = 150;
 
 function frameAction() {
     animation = requestAnimationFrame(frameAction);
@@ -54,9 +55,13 @@ function frameAction() {
     timer += 1;
     
     //장애물 제어 및 점수
-    if(timer % 80 == 0){
+    //장애물 나오는 빈도
+    if(timer % cacTime === 0){
         let cactus = new Cactus();
         cactusArr.push(cactus);
+        //첫번째 숫자가 최소, 두번째가 최대
+        cacTime = getRandomInt(120, 180);
+        timer = 0;
     }
     cactusArr.forEach((a, i, o)=>{
         if(a.x < 0){
@@ -68,19 +73,21 @@ function frameAction() {
         }
         
         //장애물 속도 제어
-        a.x -= 10;
+        a.x -= 5;
         a.draw();
     })    
 
-    //점프 속도 컨트롤
+    //점프 높이 컨트롤
     if(jumpState == 1){
         jumpTimer++; 
         dino.y -= 5;
     }
-    if(jumpTimer > 25){
+    //점프 속도 컨트롤
+    if(jumpTimer > 30){
         jumpState = 0;
         jumpTimer = 0;
     }
+    //점프 높이 컨트롤
     if(jumpState == 0){
         if(dino.y < 200){
             dino.y += 5;
@@ -110,7 +117,7 @@ document.addEventListener('keydown', (e)=>{
 function collisionDetection(dino, cactus){
     let xValue = cactus.x - ( dino.x + dino.width );
     let yValue = cactus.y - ( dino.y + dino.height );
-    if( xValue < 0 && yValue < 0 ){ // 충돌!
+    if( xValue < 0 && yValue < 0 ){
         // 충돌 시 실행되는 코드
         life--;
         document.querySelector('#life').innerHTML = life;
